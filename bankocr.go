@@ -9,23 +9,71 @@ import "strings"
 const (
 	ERROR = "ERR"
 	ILLEGAL = "ILL"
-	ZERO =
-		" _ " +
-		"| |" +
-		"|_|"
+
+c0 = " _ " +
+      "| |" +
+      "|_|"
+
+c1 = "   " + 
+      "  |" +
+      "  |"
+
+
+c2 = " _ " + 
+      " _|" +
+	  "|_ "
+
+c3 = " _ " + 
+      " _|" +
+	  " _|"
+
+c4 = "   " + 
+      "|_|" + 
+	  "  |"
+
+c5 = " _ " + 
+      "|_ " + 
+	  " _|"
+
+c6 = " _ " + 
+      "|_ " + 
+	  "|_|"
+
+c7 = " _ " + 
+      "  |" + 
+	  "  |"
+
+c8 = " _ " + 
+      "|_|" + 
+	  "|_|"
+
+c9 = " _ " +
+     "|_|" + 
+     " _|"
+
 )
+
 
 
 // Parse returns a numeric string for the input.
 func Parse(input string) string {
-	if len(input) != 27 {
-		return ILLEGAL
-	}
+	// if len(input) != 31 {
+	// 	return ILLEGAL
+	// }
 
 	stringToNum := map[string]string{
-		ZERO: "0",
+		c0: "0",
+		c1: "1",
+		c2: "2",
+		c3: "3",
+		c4: "4",
+		c5: "5",
+		c6: "6",
+		c7: "7",
+		c8: "8",
+		c9: "9",
 	}
-	var result string
+	
 
 	lines := strings.Split(input, "\n")
 	if len(lines) != 4 {
@@ -34,11 +82,19 @@ func Parse(input string) string {
 
 	var parsedNums [9]string
 
-	for line := range lines[:3] {
-		for i := 0; i < len(line); i += 3 {
+	for _, line := range lines[1:] {
 
+		for i := 0; i < 9; i += 1 {
+			leftBound := i * 3
+			rightBound := leftBound + 3
+			parsedNums[i] += line[leftBound:rightBound]
 		}
 	}
 
-	return input
+	var result string
+	for _, c := range parsedNums{
+		result += stringToNum[c]
+	}
+
+	return result
 }
